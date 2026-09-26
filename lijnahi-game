@@ -7,182 +7,173 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-    background:#000;
-    color:#fff;
-    font-family:Arial,sans-serif;
-    overflow:hidden;
-    touch-action:none;
+  background:#000;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  touch-action:none;
 }
 
 #game{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    background:
-      linear-gradient(#050505,#111);
-    overflow:hidden;
+  width:100vw;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(#07111c,#102c3d);
 }
 
-/* TOP UI */
-#top{
-    position:absolute;
-    top:15px;
-    left:0;
-    width:100%;
-    display:flex;
-    justify-content:space-around;
-    z-index:20;
-    font-size:18px;
-    font-weight:bold;
+/* Stars */
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:.7;
 }
 
-.box{
-    background:rgba(255,255,255,.08);
-    padding:8px 14px;
-    border-radius:12px;
-    border:1px solid #333;
+/* UI */
+#ui{
+  position:absolute;
+  top:15px;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  z-index:10;
 }
 
-/* PLAYER */
+.info{
+  background:rgba(0,0,0,.6);
+  color:white;
+  padding:8px 15px;
+  border-radius:15px;
+  border:1px solid #555;
+  font-weight:bold;
+}
+
+/* Player */
 #player{
-    position:absolute;
-    width:45px;
-    height:60px;
-    left:70px;
-    bottom:80px;
-    background:linear-gradient(135deg,#fff,#777);
-    border-radius:12px;
-    box-shadow:0 0 18px #fff;
+  position:absolute;
+  width:45px;
+  height:60px;
+  left:70px;
+  bottom:80px;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 0 20px white;
+  z-index:5;
 }
 
-/* EYES */
-#player:before,
-#player:after{
-    content:"";
-    position:absolute;
-    width:7px;
-    height:7px;
-    background:#000;
-    border-radius:50%;
-    top:15px;
+#player::before,
+#player::after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:7px;
+  background:#000;
+  border-radius:50%;
+  top:15px;
 }
 
-#player:before{left:10px;}
-#player:after{right:10px;}
+#player::before{
+  left:10px;
+}
 
-/* GROUND */
+#player::after{
+  right:10px;
+}
+
+/* Ground */
 #ground{
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:70px;
-    background:#080808;
-    border-top:2px solid #444;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:80px;
+  background:#050505;
+  border-top:3px solid #555;
 }
 
-/* COIN */
+/* Coin */
 .coin{
-    position:absolute;
-    width:25px;
-    height:25px;
-    border-radius:50%;
-    background:#ffd700;
-    box-shadow:0 0 15px #ffd700;
+  position:absolute;
+  width:27px;
+  height:27px;
+  border-radius:50%;
+  background:#ffd700;
+  border:3px solid #fff;
+  box-shadow:0 0 20px #ffd700;
+  z-index:4;
 }
 
-/* ENEMY */
+/* Enemy */
 .enemy{
-    position:absolute;
-    width:45px;
-    height:55px;
-    background:#222;
-    border:2px solid #ff3333;
-    border-radius:10px;
-    box-shadow:0 0 15px #ff3333;
+  position:absolute;
+  width:45px;
+  height:55px;
+  bottom:80px;
+  background:#181818;
+  border:2px solid red;
+  border-radius:10px;
+  box-shadow:0 0 15px red;
+  z-index:4;
 }
 
-/* GAME OVER */
-#gameOver{
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,.88);
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:50;
-    text-align:center;
+/* Jump Button */
+#jump{
+  position:absolute;
+  bottom:100px;
+  right:20px;
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  border:none;
+  background:white;
+  color:black;
+  font-weight:bold;
+  z-index:20;
 }
 
-#gameOver h1{
-    font-size:42px;
-    margin-bottom:15px;
+/* Start */
+#start,
+#over{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:50;
 }
 
-#gameOver p{
-    font-size:20px;
-    margin-bottom:25px;
+#over{
+  display:none;
 }
 
-button{
-    border:none;
-    background:#fff;
-    color:#000;
-    padding:13px 28px;
-    border-radius:25px;
-    font-size:17px;
-    font-weight:bold;
+h1{
+  font-size:42px;
+  letter-spacing:3px;
 }
 
-/* CONTROLS */
-#controls{
-    position:absolute;
-    bottom:80px;
-    right:20px;
-    z-index:30;
+.subtitle{
+  color:#aaa;
+  margin:15px 0 30px;
 }
 
-#jumpBtn{
-    width:75px;
-    height:75px;
-    border-radius:50%;
-    background:#fff;
-    color:#000;
-    font-size:15px;
-    font-weight:bold;
-}
-
-/* START SCREEN */
-#start{
-    position:absolute;
-    inset:0;
-    background:#000;
-    z-index:60;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-
-#start h1{
-    font-size:42px;
-    letter-spacing:3px;
-}
-
-#start p{
-    margin:15px 0 30px;
-    color:#aaa;
-}
-
-#start button{
-    cursor:pointer;
+.mainBtn{
+  padding:14px 30px;
+  border:none;
+  border-radius:25px;
+  font-size:17px;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -191,101 +182,90 @@ button{
 
 <div id="game">
 
-    <!-- START -->
-    <div id="start">
-        <h1>LIJNAHI</h1>
-        <p>RUNNER GAME</p>
-        <button onclick="startGame()">START GAME</button>
+  <div id="start">
+    <h1>LIJNAHI</h1>
+    <div class="subtitle">RUNNER GAME</div>
+    <button class="mainBtn" onclick="startGame()">START GAME</button>
+  </div>
+
+  <div id="over">
+    <h1>GAME OVER</h1>
+    <div class="subtitle">
+      Score: <span id="finalScore">0</span>
     </div>
+    <button class="mainBtn" onclick="location.reload()">RESTART</button>
+  </div>
 
-    <!-- SCORE -->
-    <div id="top">
-        <div class="box">🏆 <span id="score">0</span></div>
-        <div class="box">🪙 <span id="coins">0</span></div>
-        <div class="box">❤️ <span id="lives">3</span></div>
-    </div>
+  <div id="ui">
+    <div class="info">🏆 <span id="score">0</span></div>
+    <div class="info">🪙 <span id="coins">0</span></div>
+    <div class="info">❤️ <span id="lives">3</span></div>
+  </div>
 
-    <!-- PLAYER -->
-    <div id="player"></div>
+  <div id="player"></div>
+  <div id="ground"></div>
 
-    <!-- GROUND -->
-    <div id="ground"></div>
-
-    <!-- CONTROLS -->
-    <div id="controls">
-        <button id="jumpBtn">JUMP</button>
-    </div>
-
-    <!-- GAME OVER -->
-    <div id="gameOver">
-        <h1>GAME OVER</h1>
-        <p>Score: <span id="finalScore">0</span></p>
-        <button onclick="restartGame()">RESTART</button>
-    </div>
+  <button id="jump">JUMP</button>
 
 </div>
 
 <script>
 
-const player = document.getElementById("player");
 const game = document.getElementById("game");
+const player = document.getElementById("player");
 
-const scoreText = document.getElementById("score");
-const coinsText = document.getElementById("coins");
-const livesText = document.getElementById("lives");
-
-const gameOverScreen = document.getElementById("gameOver");
-const finalScore = document.getElementById("finalScore");
-const startScreen = document.getElementById("start");
+let running = false;
 
 let score = 0;
 let coins = 0;
 let lives = 3;
 
-let playerBottom = 80;
+let playerY = 80;
 let velocity = 0;
-let gravity = 0.7;
 let jumping = false;
 
-let gameRunning = false;
-let enemyTimer;
-let coinTimer;
-let scoreTimer;
+const gravity = 0.7;
 
 
-/* START GAME */
+/* START */
 
 function startGame(){
 
-    startScreen.style.display = "none";
+  document.getElementById("start").style.display="none";
 
-    gameRunning = true;
+  running=true;
 
-    score = 0;
-    coins = 0;
-    lives = 3;
+  createStars();
 
-    updateUI();
+  setInterval(createCoin,1200);
+  setInterval(createEnemy,1800);
 
-    enemyTimer = setInterval(createEnemy,1400);
-    coinTimer = setInterval(createCoin,1000);
-    scoreTimer = setInterval(()=>{
-        score++;
-        updateUI();
-    },500);
+  setInterval(()=>{
+    if(running){
+      score++;
+      updateUI();
+    }
+  },500);
 
-    gameLoop();
+  gameLoop();
 }
 
 
-/* UI */
+/* STARS */
 
-function updateUI(){
+function createStars(){
 
-    scoreText.textContent = score;
-    coinsText.textContent = coins;
-    livesText.textContent = lives;
+  for(let i=0;i<60;i++){
 
+    const star=document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=Math.random()*100+"%";
+    star.style.top=Math.random()*70+"%";
+
+    game.appendChild(star);
+  }
 }
 
 
@@ -293,36 +273,26 @@ function updateUI(){
 
 function jump(){
 
-    if(!gameRunning) return;
+  if(!running) return;
 
-    if(!jumping){
+  if(!jumping){
 
-        jumping = true;
-        velocity = 14;
-
-    }
-
+    jumping=true;
+    velocity=14;
+  }
 }
 
-
-/* BUTTON */
-
-document.getElementById("jumpBtn").addEventListener("touchstart",(e)=>{
-    e.preventDefault();
-    jump();
+document.getElementById("jump").addEventListener("touchstart",e=>{
+  e.preventDefault();
+  jump();
 });
 
-document.getElementById("jumpBtn").addEventListener("click",jump);
+document.getElementById("jump").onclick=jump;
 
-
-/* KEYBOARD */
-
-document.addEventListener("keydown",(e)=>{
-
-    if(e.code === "Space"){
-        jump();
-    }
-
+document.addEventListener("keydown",e=>{
+  if(e.code==="Space"){
+    jump();
+  }
 });
 
 
@@ -330,158 +300,140 @@ document.addEventListener("keydown",(e)=>{
 
 function gameLoop(){
 
-    if(!gameRunning) return;
+  if(!running) return;
 
-    velocity -= gravity;
+  velocity-=gravity;
 
-    playerBottom += velocity;
+  playerY+=velocity;
 
-    if(playerBottom <= 80){
+  if(playerY<=80){
 
-        playerBottom = 80;
-        velocity = 0;
-        jumping = false;
+    playerY=80;
+    velocity=0;
+    jumping=false;
+  }
 
-    }
+  player.style.bottom=playerY+"px";
 
-    player.style.bottom = playerBottom + "px";
-
-    requestAnimationFrame(gameLoop);
-
+  requestAnimationFrame(gameLoop);
 }
 
 
-/* CREATE ENEMY */
-
-function createEnemy(){
-
-    if(!gameRunning) return;
-
-    const enemy = document.createElement("div");
-
-    enemy.classList.add("enemy");
-
-    enemy.style.left = window.innerWidth + "px";
-    enemy.style.bottom = "80px";
-
-    game.appendChild(enemy);
-
-    let x = window.innerWidth;
-
-    const move = setInterval(()=>{
-
-        if(!gameRunning){
-
-            clearInterval(move);
-            enemy.remove();
-            return;
-
-        }
-
-        x -= 6;
-
-        enemy.style.left = x + "px";
-
-        if(collision(player,enemy)){
-
-            clearInterval(move);
-
-            enemy.remove();
-
-            lives--;
-
-            updateUI();
-
-            if(lives <= 0){
-
-                endGame();
-
-            }
-
-        }
-
-        if(x < -60){
-
-            clearInterval(move);
-            enemy.remove();
-
-        }
-
-    },20);
-
-}
-
-
-/* CREATE COIN */
+/* COIN */
 
 function createCoin(){
 
-    if(!gameRunning) return;
+  if(!running) return;
 
-    const coin = document.createElement("div");
+  const coin=document.createElement("div");
 
-    coin.classList.add("coin");
+  coin.className="coin";
 
-    let x = window.innerWidth;
+  let x=window.innerWidth;
+  let y=120+Math.random()*250;
 
-    let y = 120 + Math.random() * 250;
+  coin.style.left=x+"px";
+  coin.style.bottom=y+"px";
 
-    coin.style.left = x + "px";
-    coin.style.bottom = y + "px";
+  game.appendChild(coin);
 
-    game.appendChild(coin);
+  const move=setInterval(()=>{
 
-    const move = setInterval(()=>{
+    x-=6;
 
-        if(!gameRunning){
+    coin.style.left=x+"px";
 
-            clearInterval(move);
-            coin.remove();
-            return;
+    if(hit(player,coin)){
 
-        }
+      coins++;
+      score+=10;
 
-        x -= 5;
+      updateUI();
 
-        coin.style.left = x + "px";
+      coin.remove();
+      clearInterval(move);
+    }
 
-        if(collision(player,coin)){
+    if(x<-50){
 
-            coins++;
-            score += 10;
+      coin.remove();
+      clearInterval(move);
+    }
 
-            updateUI();
+  },20);
+}
 
-            clearInterval(move);
-            coin.remove();
 
-        }
+/* ENEMY */
 
-        if(x < -40){
+function createEnemy(){
 
-            clearInterval(move);
-            coin.remove();
+  if(!running) return;
 
-        }
+  const enemy=document.createElement("div");
 
-    },20);
+  enemy.className="enemy";
 
+  let x=window.innerWidth;
+
+  enemy.style.left=x+"px";
+
+  game.appendChild(enemy);
+
+  const move=setInterval(()=>{
+
+    x-=7;
+
+    enemy.style.left=x+"px";
+
+    if(hit(player,enemy)){
+
+      lives--;
+
+      updateUI();
+
+      enemy.remove();
+      clearInterval(move);
+
+      if(lives<=0){
+
+        endGame();
+      }
+    }
+
+    if(x<-60){
+
+      enemy.remove();
+      clearInterval(move);
+    }
+
+  },20);
 }
 
 
 /* COLLISION */
 
-function collision(a,b){
+function hit(a,b){
 
-    const A = a.getBoundingClientRect();
-    const B = b.getBoundingClientRect();
+  const A=a.getBoundingClientRect();
+  const B=b.getBoundingClientRect();
 
-    return !(
-        A.right < B.left ||
-        A.left > B.right ||
-        A.bottom < B.top ||
-        A.top > B.bottom
-    );
+  return !(
+    A.right<B.left ||
+    A.left>B.right ||
+    A.bottom<B.top ||
+    A.top>B.bottom
+  );
+}
+
+
+/* UI */
+
+function updateUI(){
+
+  document.getElementById("score").textContent=score;
+  document.getElementById("coins").textContent=coins;
+  document.getElementById("lives").textContent=lives;
 
 }
 
@@ -490,25 +442,11 @@ function collision(a,b){
 
 function endGame(){
 
-    gameRunning = false;
+  running=false;
 
-    clearInterval(enemyTimer);
-    clearInterval(coinTimer);
-    clearInterval(scoreTimer);
+  document.getElementById("finalScore").textContent=score;
 
-    finalScore.textContent = score;
-
-    gameOverScreen.style.display = "flex";
-
-}
-
-
-/* RESTART */
-
-function restartGame(){
-
-    location.reload();
-
+  document.getElementById("over").style.display="flex";
 }
 
 </script>
